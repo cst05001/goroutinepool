@@ -9,8 +9,8 @@ type Executer struct {
     ChanExecuter    chan *Executer
 }
 
-func (this *Executer) Execute(job Job, chans ...chan interface{}) {
-    job.Do(this, chans...)
+func (this *Executer) Execute(job Job, params ...interface{}) {
+    job.Do(this, params...)
     this.ChanExecuter <- this
 }
 
