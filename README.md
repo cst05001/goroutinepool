@@ -15,21 +15,26 @@ import (
 )
 
 type MyJob struct {
-
+    I   int
 }
 
-func (this *MyJob) Do(executer *goroutinepool.Executer, chans ...chan interface{}) {
+func (this *MyJob) Do(executer *goroutinepool.Executer, params ...interface{}) {
     log.Print(fmt.Sprintf("#%d: MyJob.Do() start\n", executer.Id))
+    fmt.Printf("Hello, %d\n", this.I)
     time.Sleep(time.Second * 5)
     log.Print(fmt.Sprintf("#%d: MyJob.Do() end\n", executer.Id))
 }
 
-func main() {
+func processor() {
     pool := *goroutinepool.NewPool(4)
     for i := 0; i < 10; i++ {
         executer := pool.GetExecuter()
-        go executer.Execute(&MyJob{})
+        go executer.Execute(&MyJob{I: i})
     }
+}
+
+func main() {
+    go processor()
     time.Sleep(time.Second * 30)
 }
 
