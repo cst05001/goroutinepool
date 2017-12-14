@@ -18,7 +18,7 @@ type MyJob struct {
     I   int
 }
 
-func (this *MyJob) Do(executer *goroutinepool.Executer, params ...interface{}) {
+func (this *MyJob) Do(executer *goroutinepool.Executer) {
     log.Print(fmt.Sprintf("#%d: MyJob.Do() start\n", executer.Id))
     fmt.Printf("Hello, %d\n", this.I)
     time.Sleep(time.Second * 5)
